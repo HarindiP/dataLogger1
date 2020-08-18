@@ -57,7 +57,7 @@ void setup() {
   Serial.println("done!");
 
 
-  //removing LOG00002 text file from sd card
+  //REMOVE FILE FROM SD
   
   //Serial.println("Removing LOG00002.txt...");
   //SD.remove("LOG00002.txt");
@@ -67,6 +67,24 @@ void setup() {
   //} else {
   //  Serial.println("LOG00002.txt doesn't exist.");
   //}
+
+  //OPEN FILE IN SD
+  
+  // open the file. note that only one file can be open at a time,
+  // so you have to close this one before opening another.
+  File dataFile = SD.open("TEST.txt");
+
+  // if the file is available, write to it:
+  if (dataFile) {
+    while (dataFile.available()) {
+      Serial.write(dataFile.read());
+    }
+    dataFile.close();
+  }
+  // if the file isn't open, pop up an error:
+  else {
+    Serial.println("error opening TEST.txt");
+  }
 }
 
 void loop() {
